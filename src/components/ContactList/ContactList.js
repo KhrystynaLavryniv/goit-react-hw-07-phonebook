@@ -1,15 +1,17 @@
 import { Item, ItemBtn, Contacts } from './ContactList.style';
 import { useDeleteContactsMutation } from '../../redux/contactsSlice';
+import { useSelector } from 'react-redux';
 
-const ContactList = ({ contacts, filter }) => {
+const ContactList = ({ contacts }) => {
   const [deleteContacts, { isLoading: isDeleting }] =
     useDeleteContactsMutation();
+
+  const filter = useSelector(state => state.filter);
 
   const filterVisibleContacts = () =>
     contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
-
   return (
     <>
       <Contacts>
